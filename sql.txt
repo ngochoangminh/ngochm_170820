@@ -1,0 +1,24 @@
+CREATE TABLE customer (
+customerid INT NOT NULL,
+firstname VARCHAR(255) NOT NULL,
+lastname VARCHAR(255) NOT NULL,
+companyname VARCHAR(255) NOT NULL,
+billingaddress1 VARCHAR(255) NOT NULL,
+billingaddress2 VARCHAR(255),
+city VARCHAR(255) NOT NULL,
+state VARCHAR(50) NOT NULL,
+postalcode INT NOT NULL,
+country VARCHAR(50) NOT NULL,
+phonenumber VARCHAR(50) NOT NULL,
+emailaddress VARCHAR(255) NOT NULL,
+createddate DATETIME NOT NULL,
+PRIMARY KEY(customerid)
+);
+customerid, firstname, lastname, companyname, billingaddress1, billingaddress2, city, state, postalcode, country, phonenumber, emailaddress, createddate
+
+LOAD DATA LOCAL INFILE '/home/ngoc/Downloads/customer.csv' 
+INTO TABLE customer 
+FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS 
+(customerid, firstname, lastname, companyname, billingaddress1, billingaddress2, city, state, postalcode, country, phonenumber, emailaddress, @createddate)
+SET createddate  = STR_TO_DATE(@createddate, '%d/%m/%y %hh:%mm');
