@@ -1,29 +1,28 @@
+import sys
 import requests
-from requests.auth import HTTPBasicAuth
-from selenium import webdriver
+from lxml import html
 
-url = 'http://45.79.43.178/source_carts/wordpress/wp-admin'
+url = 'http://45.79.43.178/source_carts/wordpress/wp-login.php'
+user_url = 'http://45.79.43.178/source_carts/wordpress/wp-admin/users.php'
 
-response = requests.get(url, auth = HTTPBasicAuth('admin', '123456aA')) 
-response = requests.patch('http://45.79.43.178/source_carts/wordpress/wp-admin/users')
-# print(response.cookies.keys) 
-print(response.headers['Link'])
+info = {
+    'log': 'admin', 
+    'pwd': '123456aA'
+    }
+jar=requests.cookies.RequestsCookieJar()
+jar.set('wordpress_test_cookie','WP+Cookie+check')
+jar.set('tk_ai','woo%3Aif%2BZOxwi5PZuZCKOOqMrX0Ux')
 
-########### Selenium ############
-chrome_ex = r"/usr/bin/chromedriver"
-driver = webdriver.Chrome(executable_path=chrome_ex)
-driver.get(url)
-username = driver.find_element_by_id("user_login")
-password = driver.find_element_by_id("user_pass")
-username.send_keys("admin")
-password.send_keys("123456aA")
-driver.find_element_by_name("wp-submit").click()
-
-res = driver.get('http://45.79.43.178/source_carts/wordpress/wp-admin/users.php')
-driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[4]")
-driver.find_element_by_xpath("//form//table//tbody")
-res1 = driver.find_elements_by_xpath("//td[@class='username column-username has-row-actions column-primary']//strong//a")
-res2 = driver.find_elements_by_xpath("//td[@class='name column-name']")
-for i in range(len(res1)):
-    if str(res1[i].text)=='admin':
-        print(str(res2[i].text))
+s = requests.Session()
+s.cookies = jar
+res_login = s.post(url,data=info)
+res_users = s.get(user_url)
+doc = html.fromstring(res_users.content)
+xpart_user ='//td[@class="username column-username has-row-actions column-primary"]//strong/a'
+xpart_name ='//td[@class="name column-name"]'
+res_user = doc.xpath(xpart_user)
+res_name = doc.xpath(xpart_name)
+for i in range(len(res_user)):
+    if str(res_user[i].text) == info.get('log'):
+        print(str(res_name[i].text))
+        break
