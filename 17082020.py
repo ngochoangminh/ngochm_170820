@@ -1,32 +1,26 @@
 import requests
-from requests.auth import HTTPBasicAuth 
-from requests import session
+from requests.auth import HTTPBasicAuth
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 
 url = 'http://45.79.43.178/source_carts/wordpress/wp-admin'
+user_url = "http://45.79.43.178/source_carts/wordpress/wp-admin/users.php"
 response = requests.get(url, auth = HTTPBasicAuth('admin', '123456aA')) 
  
 # print(response.cookies.keys) 
-print(response) 
+print(response.content) 
 
 
-info = {
-    'username': 'admin',
-    'password': '123456aA'
-}
-with session() as c:
-    c.post(url, data=info)
-    response = c.get(url)
-    print(response.headers)
-    # print(response.text)
-
-##### selenium ####
-# driver = webdriver.Firefox()
-# driver.get(url)
-# username = driver.find_element_by_id("username")
-# password = driver.find_element_by_id("password")
-# username.send_keys("admin")
-# password.send_keys("123456aA")
-# driver.find_element_by_name("submit").click()
-
+chrome_ex = r"/usr/bin/chromedriver"
+driver = webdriver.Chrome(executable_path=chrome_ex)
+driver.get(url)
+username = driver.find_element_by_id("user_login")
+password = driver.find_element_by_id("user_pass")
+username.send_keys("admin")
+password.send_keys("123456aA")
+driver.find_element_by_name("wp-submit").click()
+res = driver.get(user_url)
+res = driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[2]/div[1]/div[4]")
+res = driver.find_element_by_xpath("//form")
+res = driver.find_element_by_xpath("//table//tbody//tr[@id='user-1']")
+res = driver.find_element_by_xpath("//td[2]")
+print(res)
