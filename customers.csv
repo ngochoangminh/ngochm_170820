@@ -1,0 +1,5 @@
+id,email,accepts_marketing,created_at,updated_at,first_name,last_name,orders_count,state,total_spent,last_order_id,note,verified_email,multipass_identifier,tax_exempt,phone,tags,last_order_name,currency,accepts_marketing_updated_at,marketing_opt_in_level,tax_exemptions,admin_graphql_api_id
+3915493539998,chienvu@mail.com,False,2020-08-17T16:28:43+07:00,2020-08-17T16:28:43+07:00,chien,vu,0,disabled,0.00,,,True,,False,+84966666666,,,VND,2020-08-17T16:28:43+07:00,,[],gid://shopify/Customer/3915493539998
+3915481251998,,False,2020-08-17T16:27:08+07:00,2020-08-17T16:27:08+07:00,linh,dang,0,disabled,0.00,,,True,,False,,,,VND,2020-08-17T16:27:08+07:00,,[],gid://shopify/Customer/3915481251998
+3915478991006,binhnuce@gmail.com,False,2020-08-17T16:26:52+07:00,2020-08-17T16:26:52+07:00,binh,nguyen,0,disabled,0.00,,,True,,False,+84999999999,,,VND,2020-08-17T16:26:52+07:00,,[],gid://shopify/Customer/3915478991006
+3915468308638,atran@gmail.com,False,2020-08-17T16:25:33+07:00,2020-08-17T16:25:33+07:00,a,tran,0,disabled,0.00,,,True,,False,+84988888888,,,VND,2020-08-17T16:25:33+07:00,,[],gid://shopify/Customer/3915468308638
